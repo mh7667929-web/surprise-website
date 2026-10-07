@@ -1,9 +1,10 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Surprise Maker</title>
+<title>Surprise Maker — Created by Muhammad Hussain</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -47,6 +48,24 @@ h1{
     margin-bottom:25px;
 }
 
+.creator{
+    text-align:center;
+    color:#888;
+    font-size:14px;
+    margin-top:18px;
+}
+
+.creator strong{
+    color:#ec4899;
+}
+
+.footer{
+    text-align:center;
+    padding:25px 10px 10px;
+    color:#888;
+    font-size:13px;
+}
+
 input,textarea,select{
     width:100%;
     padding:14px;
@@ -74,6 +93,11 @@ button{
     font-size:16px;
     font-weight:bold;
     margin:5px;
+}
+
+button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
 }
 
 .primary{
@@ -183,6 +207,18 @@ button{
     font-size:20px;
 }
 
+.final-credit{
+    margin-top:35px;
+    padding-top:20px;
+    border-top:1px solid #eee;
+    color:#888;
+    font-size:14px;
+}
+
+.final-credit strong{
+    color:#ec4899;
+}
+
 @media(max-width:600px){
     h1{
         font-size:32px;
@@ -205,7 +241,9 @@ button{
 
     <!-- HOME -->
     <div id="homeScreen" class="card">
+
         <h1>🎁 Surprise Maker</h1>
+
         <p class="subtitle">
             Create a beautiful surprise and share it with someone special ❤️
         </p>
@@ -215,6 +253,11 @@ button{
                 ✨ Create Surprise
             </button>
         </div>
+
+        <div class="creator">
+            Created with ❤️ by <strong>Muhammad Hussain</strong>
+        </div>
+
     </div>
 
 
@@ -227,13 +270,15 @@ button{
         <input id="personName" placeholder="Enter person's name">
 
         <label>Relationship</label>
-        <input id="relationship" placeholder="e.g. Friend, Sister, Brother, Birthday">
+        <input id="relationship"
+               placeholder="e.g. Friend, Sister, Brother, Birthday">
 
         <h2 style="margin:20px 0;">📖 Pages</h2>
 
         <div id="pagesContainer"></div>
 
         <div class="center">
+
             <button class="blue" onclick="addPage()">
                 ➕ Add Page
             </button>
@@ -249,6 +294,7 @@ button{
             <button class="secondary" onclick="goHome()">
                 ← Back
             </button>
+
         </div>
 
         <div id="shareResult" class="share-box hidden">
@@ -269,8 +315,14 @@ button{
 
             </div>
 
-            <p id="copyStatus" class="center" style="margin-top:10px;"></p>
+            <p id="copyStatus"
+               class="center"
+               style="margin-top:10px;"></p>
 
+        </div>
+
+        <div class="creator">
+            Made with ❤️ by <strong>Muhammad Hussain</strong>
         </div>
 
     </div>
@@ -302,9 +354,18 @@ button{
 
     <!-- LOADING -->
     <div id="loadingScreen" class="card hidden">
+
         <div class="loading">
             ⏳ Loading surprise...
         </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <div class="footer">
+        © 2026 Surprise Maker • Created with ❤️ by
+        <strong>Muhammad Hussain</strong>
     </div>
 
 </div>
@@ -804,6 +865,11 @@ function showPage(){
             </div>
 
             <h2>💖 The End 💖</h2>
+
+            <div class="final-credit">
+                Made with ❤️ by
+                <strong>Muhammad Hussain</strong>
+            </div>
         `;
 
     }
@@ -1235,7 +1301,6 @@ window.addEventListener("DOMContentLoaded",()=>{
 
     }else{
 
-        // Home screen only
         document.getElementById("homeScreen")
             .classList.remove("hidden");
 
@@ -1265,3 +1330,4 @@ document.addEventListener("input",(event)=>{
 
 </body>
 </html>
+```
