@@ -15,7 +15,7 @@
 }
 
 body{
-    font-family:Arial, sans-serif;
+    font-family:Arial,sans-serif;
     min-height:100vh;
     background:
         radial-gradient(circle at top left,#32145f 0%,transparent 35%),
@@ -102,15 +102,14 @@ button{
 
 .btn:hover{
     transform:translateY(-2px);
-    box-shadow:0 15px 35px rgba(236,72,153,.35);
 }
 
 .btn.secondary{
     background:#25243a;
 }
 
-.btn.danger{
-    background:#7f1d1d;
+.btn.whatsapp{
+    background:#16a34a;
 }
 
 /* EDITOR */
@@ -121,12 +120,11 @@ button{
 
 .topbar{
     max-width:1100px;
-    margin:auto;
+    margin:0 auto 25px;
     display:flex;
     justify-content:space-between;
     align-items:center;
     gap:15px;
-    margin-bottom:25px;
 }
 
 .logo{
@@ -180,11 +178,13 @@ textarea{
     resize:vertical;
 }
 
-input:focus,textarea:focus,select:focus{
+input:focus,
+textarea:focus,
+select:focus{
     border-color:#a855f7;
 }
 
-/* PAGE CARDS */
+/* PAGES */
 
 .pages-title{
     margin:25px 0 15px;
@@ -203,7 +203,6 @@ input:focus,textarea:focus,select:focus{
     justify-content:space-between;
     align-items:center;
     margin-bottom:15px;
-    gap:10px;
 }
 
 .page-number{
@@ -227,7 +226,7 @@ input:focus,textarea:focus,select:focus{
 }
 
 .small-btn.delete{
-    background:#5c2028;
+    background:#7f1d1d;
 }
 
 .image-preview{
@@ -236,7 +235,6 @@ input:focus,textarea:focus,select:focus{
     object-fit:cover;
     border-radius:12px;
     margin-top:10px;
-    display:none;
 }
 
 /* SHARE */
@@ -261,10 +259,6 @@ input:focus,textarea:focus,select:focus{
     border-radius:12px;
     word-break:break-all;
     color:#ddd;
-}
-
-.whatsapp{
-    background:#16a34a;
 }
 
 /* PREVIEW */
@@ -365,14 +359,12 @@ input:focus,textarea:focus,select:focus{
     border-top-color:#ec4899;
     border-radius:50%;
     animation:spin 1s linear infinite;
-    margin:auto auto 20px;
+    margin:0 auto 20px;
 }
 
 @keyframes spin{
     to{transform:rotate(360deg)}
 }
-
-/* FOOTER */
 
 .footer{
     text-align:center;
@@ -382,6 +374,7 @@ input:focus,textarea:focus,select:focus{
 }
 
 @media(max-width:700px){
+
     .form-grid{
         grid-template-columns:1fr;
     }
@@ -415,6 +408,7 @@ input:focus,textarea:focus,select:focus{
 <!-- HOME -->
 
 <section id="homeScreen" class="screen active home">
+
     <div class="hero">
 
         <div class="gift">🎁</div>
@@ -422,8 +416,8 @@ input:focus,textarea:focus,select:focus{
         <h1>Surprise Maker</h1>
 
         <p>
-            Create a beautiful personalized surprise and share it
-            with someone special. ❤️
+            Create a beautiful personalized surprise
+            and share it with someone special. ❤️
         </p>
 
         <button class="btn" onclick="openEditor()">
@@ -435,6 +429,7 @@ input:focus,textarea:focus,select:focus{
         </div>
 
     </div>
+
 </section>
 
 
@@ -454,7 +449,6 @@ input:focus,textarea:focus,select:focus{
 
     </div>
 
-
     <div class="panel">
 
         <h2>✨ Create Your Surprise</h2>
@@ -464,35 +458,42 @@ input:focus,textarea:focus,select:focus{
         <div class="form-grid">
 
             <div class="field">
+
                 <label>👤 From</label>
+
                 <input
                     id="fromName"
                     placeholder="Your name">
+
             </div>
 
             <div class="field">
+
                 <label>💝 To</label>
+
                 <input
                     id="toName"
                     placeholder="Person receiving the surprise">
+
             </div>
 
             <div class="field full">
+
                 <label>🤝 Relationship</label>
+
                 <input
                     id="relationship"
                     placeholder="Friend, Family, Birthday, Special Person...">
+
             </div>
 
         </div>
-
 
         <div class="pages-title">
             <h3>📄 Surprise Pages</h3>
         </div>
 
         <div id="pagesContainer"></div>
-
 
         <div class="actions">
 
@@ -509,7 +510,6 @@ input:focus,textarea:focus,select:focus{
             </button>
 
         </div>
-
 
         <div class="footer">
             Made with ❤️ by Muhammad Hussain
@@ -578,7 +578,8 @@ input:focus,textarea:focus,select:focus{
         <img
             id="previewImage"
             class="preview-image"
-            alt="Surprise image">
+            alt="Surprise image"
+            style="display:none">
 
         <div
             id="previewMessage"
@@ -589,15 +590,11 @@ input:focus,textarea:focus,select:focus{
             id="previewQuestion"
             style="display:none;margin-top:25px">
 
-            <button
-                class="btn"
-                onclick="answerYes()">
+            <button class="btn" onclick="answerYes()">
                 ❤️ Yes
             </button>
 
-            <button
-                class="btn secondary"
-                onclick="answerNo()">
+            <button class="btn secondary" onclick="answerNo()">
                 🙈 No
             </button>
 
@@ -620,7 +617,6 @@ input:focus,textarea:focus,select:focus{
             </button>
 
             <button
-                id="exitPreviewBtn"
                 class="btn secondary"
                 onclick="exitPreview()">
                 Exit
@@ -664,15 +660,34 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_98CPwoSA9_GqfmE1mEDryw_vJwYxJZq";
 
-const supabaseClient =
-window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
+/*
+   IMPORTANT:
+   Agar Supabase CDN load na ho to
+   website ke normal buttons phir bhi
+   kaam karenge.
+*/
+
+let supabaseClient = null;
+
+if(window.supabase){
+
+    supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+}else{
+
+    console.warn(
+        "Supabase library could not be loaded."
+    );
+
+}
 
 
 /* =========================================
-   APP DATA
+   DATA
 ========================================= */
 
 let pages = [];
@@ -696,8 +711,7 @@ function createDefaultPage(){
 
         title:"A Special Message ❤️",
 
-        message:
-        "Write your beautiful message here..."
+        message:"Write your beautiful message here..."
 
     };
 
@@ -705,18 +719,23 @@ function createDefaultPage(){
 
 
 /* =========================================
-   SCREEN CONTROL
+   SCREEN
 ========================================= */
 
 function showScreen(id){
 
-    document.querySelectorAll(".screen")
-    .forEach(screen=>{
-        screen.classList.remove("active");
-    });
+    document
+        .querySelectorAll(".screen")
+        .forEach(screen=>{
+            screen.classList.remove("active");
+        });
 
-    document.getElementById(id)
-    .classList.add("active");
+    const target =
+        document.getElementById(id);
+
+    if(target){
+        target.classList.add("active");
+    }
 
 }
 
@@ -735,7 +754,7 @@ function goHome(){
 
 
 /* =========================================
-   EDITOR
+   OPEN EDITOR
 ========================================= */
 
 function openEditor(){
@@ -785,7 +804,11 @@ function addPage(){
 function renderEditor(){
 
     const container =
-        document.getElementById("pagesContainer");
+        document.getElementById(
+            "pagesContainer"
+        );
+
+    if(!container) return;
 
     container.innerHTML = "";
 
@@ -793,9 +816,10 @@ function renderEditor(){
     pages.forEach((page,index)=>{
 
         const card =
-        document.createElement("div");
+            document.createElement("div");
 
-        card.className = "page-card";
+        card.className =
+            "page-card";
 
 
         card.innerHTML = `
@@ -888,23 +912,29 @@ function renderEditor(){
 
                 <div class="field">
 
-                    <label>Photo</label>
+                    <label>📸 Photo</label>
 
                     <input
                         type="file"
                         accept="image/*"
                         onchange="uploadImage(${index},this)">
 
-                    <img
-                        id="imagePreview${index}"
-                        class="image-preview"
-                        ${page.image ? `src="${page.image}" style="display:block"` : ""}
-                    >
+                    ${
+                        page.image
+                        ?
+                        `<img
+                            class="image-preview"
+                            src="${page.image}"
+                            alt="Preview">`
+                        :
+                        ""
+                    }
 
                 </div>
 
                 `
-                : ""
+                :
+                ""
             }
 
 
@@ -915,17 +945,21 @@ function renderEditor(){
 
                 <div class="field">
 
-                    <label>Question</label>
+                    <label>❓ Question</label>
 
                     <input
-                        value="${escapeHtml(page.question || "Will you always remember this moment? ❤️")}"
+                        value="${escapeHtml(
+                            page.question ||
+                            "Will you always remember this moment? ❤️"
+                        )}"
                         oninput="updatePage(${index},'question',this.value)"
                         placeholder="Ask a question">
 
                 </div>
 
                 `
-                : ""
+                :
+                ""
             }
 
         `;
@@ -943,6 +977,8 @@ function renderEditor(){
 
 function updatePage(index,key,value){
 
+    if(!pages[index]) return;
+
     pages[index][key] = value;
 
     saveDraft();
@@ -951,17 +987,22 @@ function updatePage(index,key,value){
 
 
 /* =========================================
-   CHANGE PAGE TYPE
+   CHANGE TYPE
 ========================================= */
 
 function changePageType(index,type){
 
+    if(!pages[index]) return;
+
     pages[index].type = type;
 
-    if(type === "question" && !pages[index].question){
+    if(
+        type === "question" &&
+        !pages[index].question
+    ){
 
         pages[index].question =
-        "Will you always remember this moment? ❤️";
+            "Will you always remember this moment? ❤️";
 
     }
 
@@ -980,7 +1021,9 @@ function deletePage(index){
 
     if(pages.length <= 1){
 
-        alert("You need at least one page.");
+        alert(
+            "You need at least one page."
+        );
 
         return;
 
@@ -996,19 +1039,22 @@ function deletePage(index){
 
 
 /* =========================================
-   IMAGE UPLOAD
+   IMAGE
 ========================================= */
 
 function uploadImage(index,input){
 
-    const file = input.files[0];
+    const file =
+        input.files[0];
 
     if(!file) return;
 
 
     if(file.size > 3 * 1024 * 1024){
 
-        alert("Please choose an image smaller than 3MB.");
+        alert(
+            "Please choose an image smaller than 3MB."
+        );
 
         input.value = "";
 
@@ -1017,19 +1063,21 @@ function uploadImage(index,input){
     }
 
 
-    const reader = new FileReader();
+    const reader =
+        new FileReader();
 
 
-    reader.onload = function(event){
+    reader.onload =
+        function(event){
 
-        pages[index].image =
-        event.target.result;
+            pages[index].image =
+                event.target.result;
 
-        renderEditor();
+            renderEditor();
 
-        saveDraft();
+            saveDraft();
 
-    };
+        };
 
 
     reader.readAsDataURL(file);
@@ -1043,26 +1091,49 @@ function uploadImage(index,input){
 
 function saveDraft(){
 
+    const from =
+        document.getElementById("fromName");
+
+    const to =
+        document.getElementById("toName");
+
+    const relationship =
+        document.getElementById("relationship");
+
+
     const draft = {
 
         from:
-        document.getElementById("fromName")?.value || "",
+            from ? from.value : "",
 
         to:
-        document.getElementById("toName")?.value || "",
+            to ? to.value : "",
 
         relationship:
-        document.getElementById("relationship")?.value || "",
+            relationship
+            ? relationship.value
+            : "",
 
         pages:pages
 
     };
 
 
-    localStorage.setItem(
-        "surpriseMakerDraft",
-        JSON.stringify(draft)
-    );
+    try{
+
+        localStorage.setItem(
+            "surpriseMakerDraft",
+            JSON.stringify(draft)
+        );
+
+    }catch(error){
+
+        console.warn(
+            "Draft could not be saved:",
+            error
+        );
+
+    }
 
 }
 
@@ -1073,40 +1144,63 @@ function saveDraft(){
 
 function loadDraft(){
 
-    const saved =
-        localStorage.getItem(
-            "surpriseMakerDraft"
-        );
-
-    if(!saved) return;
-
-
     try{
+
+        const saved =
+            localStorage.getItem(
+                "surpriseMakerDraft"
+            );
+
+        if(!saved) return;
+
 
         const draft =
             JSON.parse(saved);
 
 
-        document.getElementById("fromName").value =
-            draft.from || "";
+        const from =
+            document.getElementById("fromName");
 
-        document.getElementById("toName").value =
-            draft.to || "";
+        const to =
+            document.getElementById("toName");
 
-        document.getElementById("relationship").value =
-            draft.relationship || "";
+        const relationship =
+            document.getElementById(
+                "relationship"
+            );
 
 
-        if(Array.isArray(draft.pages)){
+        if(from){
+            from.value =
+                draft.from || "";
+        }
+
+        if(to){
+            to.value =
+                draft.to || "";
+        }
+
+        if(relationship){
+            relationship.value =
+                draft.relationship || "";
+        }
+
+
+        if(
+            Array.isArray(draft.pages) &&
+            draft.pages.length
+        ){
 
             pages = draft.pages;
 
         }
 
-
     }catch(error){
 
-        console.log(error);
+        console.warn(
+            "Draft could not be loaded:",
+            error
+        );
 
     }
 
@@ -1121,7 +1215,9 @@ function startPreview(){
 
     if(pages.length === 0){
 
-        alert("Please add at least one page.");
+        alert(
+            "Please add at least one page."
+        );
 
         return;
 
@@ -1144,116 +1240,143 @@ function startPreview(){
 
 function showPage(){
 
-    const page = pages[currentPage];
+    const page =
+        pages[currentPage];
 
     if(!page) return;
 
 
-    document.getElementById("pageCounter")
-        .textContent =
+    const counter =
+        document.getElementById(
+            "pageCounter"
+        );
+
+    counter.textContent =
         `Page ${currentPage + 1} of ${pages.length}`;
 
 
     const from =
-        document.getElementById("fromName").value;
+        document.getElementById(
+            "fromName"
+        )?.value || "";
+
 
     const to =
-        document.getElementById("toName").value;
+        document.getElementById(
+            "toName"
+        )?.value || "";
 
 
     let fromTo = "";
 
+
     if(from && to){
 
         fromTo =
-        `From ${from} ❤️ To ${to}`;
+            `From ${from} ❤️ To ${to}`;
 
     }else if(from){
 
         fromTo =
-        `From ${from} ❤️`;
+            `From ${from} ❤️`;
 
     }else if(to){
 
         fromTo =
-        `For ${to} ❤️`;
+            `For ${to} ❤️`;
 
     }
 
 
-    document.getElementById("previewFromTo")
-        .textContent = fromTo;
+    document.getElementById(
+        "previewFromTo"
+    ).textContent = fromTo;
 
 
-    document.getElementById("previewTitle")
-        .textContent =
+    document.getElementById(
+        "previewTitle"
+    ).textContent =
         page.title || "";
 
 
-    document.getElementById("previewMessage")
-        .textContent =
+    document.getElementById(
+        "previewMessage"
+    ).textContent =
         page.message || "";
 
 
     const image =
-        document.getElementById("previewImage");
+        document.getElementById(
+            "previewImage"
+        );
 
 
     if(page.image){
 
-        image.src = page.image;
+        image.src =
+            page.image;
 
-        image.style.display = "block";
+        image.style.display =
+            "block";
 
     }else{
 
         image.removeAttribute("src");
 
-        image.style.display = "none";
+        image.style.display =
+            "none";
 
     }
 
 
     const question =
-        document.getElementById("previewQuestion");
+        document.getElementById(
+            "previewQuestion"
+        );
 
 
     if(page.type === "question"){
 
-        question.style.display = "block";
+        question.style.display =
+            "block";
 
-        document.getElementById("previewMessage")
-            .textContent =
+        document.getElementById(
+            "previewMessage"
+        ).textContent =
             page.question ||
             page.message ||
             "";
 
     }else{
 
-        question.style.display = "none";
+        question.style.display =
+            "none";
 
     }
 
 
     if(page.type === "final"){
 
-        document.getElementById("previewMessage")
-            .textContent =
+        document.getElementById(
+            "previewMessage"
+        ).textContent =
             page.message ||
             "You are very special to me. ❤️\n\nMade with love by Muhammad Hussain.";
 
     }
 
 
-    document.getElementById("previousBtn")
-        .style.display =
+    document.getElementById(
+        "previousBtn"
+    ).style.display =
         currentPage === 0
         ? "none"
         : "inline-block";
 
 
-    document.getElementById("nextBtn")
-        .style.display =
+    document.getElementById(
+        "nextBtn"
+    ).style.display =
         currentPage === pages.length - 1
         ? "none"
         : "inline-block";
@@ -1267,7 +1390,10 @@ function showPage(){
 
 function nextPage(){
 
-    if(currentPage < pages.length - 1){
+    if(
+        currentPage <
+        pages.length - 1
+    ){
 
         currentPage++;
 
@@ -1298,29 +1424,29 @@ function previousPage(){
 
 
 /* =========================================
-   QUESTION YES
+   QUESTION
 ========================================= */
 
 function answerYes(){
 
-    alert("Aww ❤️ That made this surprise even more special!");
+    alert(
+        "Aww ❤️ That made this surprise even more special!"
+    );
 
 }
 
-
-/* =========================================
-   QUESTION NO
-========================================= */
 
 function answerNo(){
 
-    alert("That's okay 😄❤️");
+    alert(
+        "That's okay 😄❤️"
+    );
 
 }
 
 
 /* =========================================
-   EXIT PREVIEW
+   EXIT
 ========================================= */
 
 function exitPreview(){
@@ -1331,7 +1457,9 @@ function exitPreview(){
 
     }else{
 
-        showScreen("editorScreen");
+        showScreen(
+            "editorScreen"
+        );
 
     }
 
@@ -1345,7 +1473,9 @@ function exitPreview(){
 function createHearts(){
 
     const container =
-        document.getElementById("heartsContainer");
+        document.getElementById(
+            "heartsContainer"
+        );
 
     container.innerHTML = "";
 
@@ -1353,13 +1483,20 @@ function createHearts(){
     for(let i=0;i<15;i++){
 
         const heart =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
-        heart.className = "heart";
+        heart.className =
+            "heart";
 
         heart.textContent =
             ["❤️","💖","💕","💗","✨"]
-            [Math.floor(Math.random()*5)];
+            [
+                Math.floor(
+                    Math.random()*5
+                )
+            ];
 
 
         heart.style.left =
@@ -1367,14 +1504,18 @@ function createHearts(){
 
 
         heart.style.fontSize =
-            (15 + Math.random()*25) + "px";
+            (15 + Math.random()*25) +
+            "px";
 
 
         heart.style.animationDuration =
-            (4 + Math.random()*4) + "s";
+            (4 + Math.random()*4) +
+            "s";
 
 
-        container.appendChild(heart);
+        container.appendChild(
+            heart
+        );
 
     }
 
@@ -1388,19 +1529,28 @@ function createHearts(){
 async function generateShareLink(){
 
     const from =
-        document.getElementById("fromName").value.trim();
+        document.getElementById(
+            "fromName"
+        ).value.trim();
+
 
     const to =
-        document.getElementById("toName").value.trim();
+        document.getElementById(
+            "toName"
+        ).value.trim();
+
 
     const relationship =
-        document.getElementById("relationship")
-        .value.trim();
+        document.getElementById(
+            "relationship"
+        ).value.trim();
 
 
     if(!from){
 
-        alert("Please enter From name.");
+        alert(
+            "Please enter From name."
+        );
 
         return;
 
@@ -1409,16 +1559,31 @@ async function generateShareLink(){
 
     if(!to){
 
-        alert("Please enter To name.");
+        alert(
+            "Please enter To name."
+        );
 
         return;
 
     }
 
 
-    if(pages.length === 0){
+    if(!pages.length){
 
-        alert("Please add at least one page.");
+        alert(
+            "Please add at least one page."
+        );
+
+        return;
+
+    }
+
+
+    if(!supabaseClient){
+
+        alert(
+            "Supabase could not load. Please check your internet connection and refresh the page."
+        );
 
         return;
 
@@ -1427,13 +1592,10 @@ async function generateShareLink(){
 
     try{
 
-        showScreen("loadingScreen");
+        showScreen(
+            "loadingScreen"
+        );
 
-
-        /*
-           We store From + To inside pages JSON
-           so no database columns need to be added.
-        */
 
         const pagesData = {
 
@@ -1448,7 +1610,7 @@ async function generateShareLink(){
         };
 
 
-        const {data,error} =
+        const result =
             await supabaseClient
             .from("surprises")
             .insert({
@@ -1464,6 +1626,13 @@ async function generateShareLink(){
             .single();
 
 
+        const data =
+            result.data;
+
+        const error =
+            result.error;
+
+
         if(error){
 
             console.error(error);
@@ -1473,7 +1642,9 @@ async function generateShareLink(){
                 error.message
             );
 
-            showScreen("editorScreen");
+            showScreen(
+                "editorScreen"
+            );
 
             return;
 
@@ -1487,12 +1658,15 @@ async function generateShareLink(){
             data.id;
 
 
-        document.getElementById("shareLink")
-            .textContent =
+        document.getElementById(
+            "shareLink"
+        ).textContent =
             generatedShareUrl;
 
 
-        showScreen("shareScreen");
+        showScreen(
+            "shareScreen"
+        );
 
 
     }catch(error){
@@ -1504,7 +1678,9 @@ async function generateShareLink(){
             error.message
         );
 
-        showScreen("editorScreen");
+        showScreen(
+            "editorScreen"
+        );
 
     }
 
@@ -1512,20 +1688,25 @@ async function generateShareLink(){
 
 
 /* =========================================
-   COPY SHARE LINK
+   COPY LINK
 ========================================= */
 
 async function copyShareLink(){
 
-    if(!generatedShareUrl) return;
+    if(!generatedShareUrl)
+        return;
 
 
     try{
 
         await navigator.clipboard
-            .writeText(generatedShareUrl);
+            .writeText(
+                generatedShareUrl
+            );
 
-        alert("Share link copied! ❤️");
+        alert(
+            "Share link copied! ❤️"
+        );
 
     }catch(error){
 
@@ -1545,23 +1726,30 @@ async function copyShareLink(){
 
 function shareWhatsApp(){
 
-    if(!generatedShareUrl) return;
+    if(!generatedShareUrl)
+        return;
 
 
     const to =
-        document.getElementById("toName")
-        ?.value || "you";
+        document.getElementById(
+            "toName"
+        )?.value ||
+        "you";
 
 
     const message =
         "I made a special surprise for you ❤️\n\n" +
-        "For: " + to + "\n\n" +
+        "For: " +
+        to +
+        "\n\n" +
         generatedShareUrl;
 
 
     const whatsappUrl =
         "https://wa.me/?text=" +
-        encodeURIComponent(message);
+        encodeURIComponent(
+            message
+        );
 
 
     window.open(
@@ -1578,17 +1766,41 @@ function shareWhatsApp(){
 
 async function loadSharedSurprise(id){
 
+    if(!supabaseClient){
+
+        alert(
+            "Supabase could not load. Please refresh the page."
+        );
+
+        goHome();
+
+        return;
+
+    }
+
+
     try{
 
-        showScreen("loadingScreen");
+        showScreen(
+            "loadingScreen"
+        );
 
 
-        const {data,error} =
+        const result =
             await supabaseClient
             .from("surprises")
-            .select("name,relationship,pages")
+            .select(
+                "name,relationship,pages"
+            )
             .eq("id",id)
             .single();
+
+
+        const data =
+            result.data;
+
+        const error =
+            result.error;
 
 
         if(error){
@@ -1610,48 +1822,55 @@ async function loadSharedSurprise(id){
             data.pages;
 
 
-        /*
-           New format:
-           {
-              from,
-              to,
-              relationship,
-              items:[...]
-           }
-
-           Old format:
-           [...]
-        */
-
         if(
             stored &&
             !Array.isArray(stored) &&
             Array.isArray(stored.items)
         ){
 
-            document.getElementById("fromName").value =
+            document.getElementById(
+                "fromName"
+            ).value =
                 stored.from || "";
 
-            document.getElementById("toName").value =
-                stored.to || data.name || "";
 
-            document.getElementById("relationship").value =
+            document.getElementById(
+                "toName"
+            ).value =
+                stored.to ||
+                data.name ||
+                "";
+
+
+            document.getElementById(
+                "relationship"
+            ).value =
                 stored.relationship ||
                 data.relationship ||
                 "";
 
-            pages = stored.items;
+
+            pages =
+                stored.items;
 
         }else{
 
-            document.getElementById("fromName").value =
-                "";
+            document.getElementById(
+                "fromName"
+            ).value = "";
 
-            document.getElementById("toName").value =
+
+            document.getElementById(
+                "toName"
+            ).value =
                 data.name || "";
 
-            document.getElementById("relationship").value =
+
+            document.getElementById(
+                "relationship"
+            ).value =
                 data.relationship || "";
+
 
             pages =
                 Array.isArray(stored)
@@ -1661,7 +1880,7 @@ async function loadSharedSurprise(id){
         }
 
 
-        if(pages.length === 0){
+        if(!pages.length){
 
             pages.push(
                 createDefaultPage()
@@ -1670,11 +1889,14 @@ async function loadSharedSurprise(id){
         }
 
 
-        loadedSharedSurprise = true;
+        loadedSharedSurprise =
+            true;
 
         currentPage = 0;
 
-        showScreen("previewScreen");
+        showScreen(
+            "previewScreen"
+        );
 
         showPage();
 
@@ -1702,18 +1924,35 @@ async function loadSharedSurprise(id){
 
 function escapeHtml(value){
 
-    return String(value || "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+    return String(
+        value || ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 
 }
 
 
 /* =========================================
-   INITIALIZE
+   START APP
 ========================================= */
 
 document.addEventListener(
@@ -1739,7 +1978,7 @@ document.addEventListener(
 
         }else{
 
-            if(pages.length === 0){
+            if(!pages.length){
 
                 pages.push(
                     createDefaultPage()
@@ -1750,28 +1989,50 @@ document.addEventListener(
         }
 
 
-        document
-            .getElementById("fromName")
-            .addEventListener(
+        const from =
+            document.getElementById(
+                "fromName"
+            );
+
+        const to =
+            document.getElementById(
+                "toName"
+            );
+
+        const relationship =
+            document.getElementById(
+                "relationship"
+            );
+
+
+        if(from){
+
+            from.addEventListener(
                 "input",
                 saveDraft
             );
 
+        }
 
-        document
-            .getElementById("toName")
-            .addEventListener(
+
+        if(to){
+
+            to.addEventListener(
                 "input",
                 saveDraft
             );
 
+        }
 
-        document
-            .getElementById("relationship")
-            .addEventListener(
+
+        if(relationship){
+
+            relationship.addEventListener(
                 "input",
                 saveDraft
             );
+
+        }
 
     }
 );
