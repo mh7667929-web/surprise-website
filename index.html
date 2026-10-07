@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Surprise Maker ❤️</title>
+<title>Surprise Maker</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{
@@ -13,128 +15,46 @@
 }
 
 body{
-    font-family:Arial, sans-serif;
+    font-family:Arial,sans-serif;
     min-height:100vh;
-    color:white;
-    background:
-        radial-gradient(circle at top left,#4c1d95,transparent 35%),
-        radial-gradient(circle at bottom right,#be185d,transparent 35%),
-        #080812;
-    overflow-x:hidden;
-}
-
-button,input,textarea,select{
-    font:inherit;
+    background:linear-gradient(135deg,#fff0f5,#f3e8ff,#e0f2fe);
+    color:#222;
 }
 
 .container{
-    width:min(1000px,92%);
+    max-width:900px;
     margin:auto;
-    padding:35px 0;
-}
-
-.hidden{
-    display:none!important;
-}
-
-/* HOME */
-
-.home{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-}
-
-.hero{
-    width:min(700px,100%);
-    padding:45px 25px;
-}
-
-.gift{
-    font-size:80px;
-    animation:float 2s ease-in-out infinite;
-}
-
-@keyframes float{
-    50%{transform:translateY(-12px)}
-}
-
-.hero h1{
-    font-size:clamp(38px,8vw,70px);
-    margin:15px 0;
-    background:linear-gradient(90deg,#fff,#f9a8d4,#c4b5fd);
-    -webkit-background-clip:text;
-    color:transparent;
-}
-
-.hero p{
-    color:#d4d4d8;
-    font-size:18px;
-    margin-bottom:30px;
-}
-
-.main-btn{
-    border:0;
-    padding:15px 30px;
-    border-radius:50px;
-    color:white;
-    background:linear-gradient(135deg,#ec4899,#8b5cf6);
-    cursor:pointer;
-    font-weight:bold;
-    box-shadow:0 10px 30px #0005;
-    transition:.25s;
-}
-
-.main-btn:hover{
-    transform:translateY(-3px) scale(1.02);
-}
-
-/* EDITOR */
-
-.editor{
-    min-height:100vh;
-}
-
-.topbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:15px;
-    margin-bottom:25px;
-}
-
-.logo{
-    font-size:25px;
-    font-weight:bold;
+    padding:25px;
 }
 
 .card{
-    background:#ffffff0d;
-    border:1px solid #ffffff18;
-    backdrop-filter:blur(15px);
-    border-radius:22px;
-    padding:25px;
-    box-shadow:0 15px 40px #0004;
+    background:rgba(255,255,255,.92);
+    border-radius:24px;
+    padding:30px;
+    box-shadow:0 15px 40px rgba(0,0,0,.12);
+    margin-top:25px;
 }
 
-label{
-    display:block;
-    margin-bottom:8px;
-    color:#ddd;
-    font-weight:bold;
+h1{
+    text-align:center;
+    font-size:42px;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#666;
+    margin-bottom:25px;
 }
 
 input,textarea,select{
     width:100%;
-    padding:13px 15px;
-    border:1px solid #ffffff20;
-    border-radius:12px;
-    background:#0005;
-    color:white;
-    outline:none;
+    padding:14px;
+    margin-top:8px;
     margin-bottom:18px;
+    border:1px solid #ddd;
+    border-radius:12px;
+    font-size:16px;
 }
 
 textarea{
@@ -142,231 +62,138 @@ textarea{
     resize:vertical;
 }
 
-option{
-    background:#181824;
+label{
+    font-weight:bold;
 }
 
-.pages-title{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    margin-bottom:18px;
-}
-
-.pages-title h2{
-    font-size:22px;
-}
-
-.small-btn{
-    border:1px solid #ffffff20;
-    background:#ffffff10;
-    color:white;
-    padding:10px 15px;
+button{
+    border:none;
+    padding:13px 20px;
     border-radius:12px;
     cursor:pointer;
+    font-size:16px;
+    font-weight:bold;
+    margin:5px;
 }
 
-.small-btn:hover{
-    background:#ffffff20;
+.primary{
+    background:#ec4899;
+    color:white;
 }
 
-.page-card{
-    border:1px solid #ffffff18;
-    background:#ffffff08;
+.secondary{
+    background:#e5e7eb;
+    color:#222;
+}
+
+.success{
+    background:#22c55e;
+    color:white;
+}
+
+.blue{
+    background:#3b82f6;
+    color:white;
+}
+
+.danger{
+    background:#ef4444;
+    color:white;
+}
+
+.center{
+    text-align:center;
+}
+
+.page-box{
+    border:1px solid #ddd;
     border-radius:18px;
     padding:20px;
-    margin-bottom:18px;
+    margin-bottom:20px;
+    background:#fafafa;
 }
 
-.page-head{
+.page-header{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:18px;
-}
-
-.page-number{
-    font-weight:bold;
-    color:#f9a8d4;
-}
-
-.delete-btn{
-    border:0;
-    background:#ef444422;
-    color:#fca5a5;
-    padding:8px 12px;
-    border-radius:10px;
-    cursor:pointer;
-}
-
-.preview-btn{
-    width:100%;
-    margin-top:10px;
-    padding:16px;
-    border:0;
-    border-radius:14px;
-    background:linear-gradient(135deg,#8b5cf6,#ec4899);
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-    font-size:17px;
-}
-
-/* PREVIEW */
-
-.preview{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:25px;
-    position:relative;
-}
-
-.scene{
-    width:min(700px,100%);
-    min-height:550px;
-    background:#ffffff0d;
-    border:1px solid #ffffff20;
-    backdrop-filter:blur(20px);
-    border-radius:30px;
-    padding:35px;
-    text-align:center;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    box-shadow:0 20px 70px #0007;
-}
-
-.scene small{
-    color:#f9a8d4;
-    font-weight:bold;
-    letter-spacing:2px;
     margin-bottom:15px;
 }
 
-.scene h1{
-    font-size:clamp(30px,7vw,55px);
-    margin-bottom:20px;
+.preview{
+    text-align:center;
 }
 
-.scene p{
-    color:#ddd;
-    font-size:18px;
-    line-height:1.8;
-    white-space:pre-line;
+.preview img{
+    max-width:100%;
+    max-height:400px;
+    border-radius:18px;
+    margin:20px 0;
 }
 
-.scene img{
-    width:min(100%,500px);
-    max-height:350px;
-    object-fit:cover;
-    border-radius:20px;
-    margin:20px auto;
-    box-shadow:0 15px 40px #0006;
+.big-message{
+    font-size:24px;
+    line-height:1.6;
+    margin:25px 0;
 }
 
-.nav-buttons{
-    display:flex;
-    justify-content:center;
-    gap:12px;
-    margin-top:30px;
-    flex-wrap:wrap;
+.share-box{
+    background:#f0fdf4;
+    border:2px solid #86efac;
+    border-radius:18px;
+    padding:20px;
+    margin-top:20px;
 }
 
-.nav-btn{
-    border:1px solid #ffffff25;
-    background:#ffffff12;
-    color:white;
-    padding:12px 22px;
-    border-radius:30px;
-    cursor:pointer;
+.share-link{
+    background:white;
+    padding:14px;
+    border-radius:10px;
+    word-break:break-all;
+    margin:12px 0;
+    border:1px solid #ddd;
 }
 
-.nav-btn.primary{
-    background:linear-gradient(135deg,#ec4899,#8b5cf6);
-    border:0;
+.hidden{
+    display:none;
 }
-
-.counter{
-    margin-top:18px;
-    color:#aaa;
-    font-size:14px;
-}
-
-/* QUESTION */
-
-.question-buttons{
-    display:flex;
-    justify-content:center;
-    gap:15px;
-    margin-top:30px;
-}
-
-.yes-btn{
-    background:#ec4899;
-    color:white;
-    border:0;
-    padding:14px 30px;
-    border-radius:30px;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.no-btn{
-    background:#ffffff12;
-    color:white;
-    border:1px solid #ffffff20;
-    padding:14px 30px;
-    border-radius:30px;
-    cursor:pointer;
-}
-
-/* HEARTS */
 
 .heart{
     position:fixed;
+    bottom:-30px;
+    font-size:24px;
+    animation:floatUp 4s linear forwards;
     pointer-events:none;
-    animation:heartFall 4s linear forwards;
-    font-size:25px;
-    z-index:100;
 }
 
-@keyframes heartFall{
+@keyframes floatUp{
     0%{
-        transform:translateY(-50px) rotate(0);
+        transform:translateY(0) rotate(0);
         opacity:1;
     }
     100%{
-        transform:translateY(110vh) rotate(360deg);
+        transform:translateY(-110vh) rotate(360deg);
         opacity:0;
     }
 }
 
-@media(max-width:600px){
+.loading{
+    text-align:center;
+    padding:50px;
+    font-size:20px;
+}
 
-    .container{
-        width:94%;
-        padding:20px 0;
+@media(max-width:600px){
+    h1{
+        font-size:32px;
     }
 
     .card{
-        padding:18px;
+        padding:20px;
     }
 
-    .scene{
-        min-height:600px;
-        padding:25px 18px;
-    }
-
-    .topbar{
-        align-items:flex-start;
-        flex-direction:column;
-    }
-
-    .page-head{
-        align-items:flex-start;
+    .big-message{
+        font-size:20px;
     }
 }
 </style>
@@ -374,270 +201,215 @@ option{
 
 <body>
 
-<!-- HOME -->
-<section id="home" class="home">
-    <div class="hero">
-        <div class="gift">🎁</div>
+<div class="container">
 
-        <h1>Surprise Maker</h1>
-
-        <p>
-            Create a beautiful surprise journey for someone special.
-            Add messages, photos, questions and memories.
+    <!-- HOME -->
+    <div id="homeScreen" class="card">
+        <h1>🎁 Surprise Maker</h1>
+        <p class="subtitle">
+            Create a beautiful surprise and share it with someone special ❤️
         </p>
 
-        <button class="main-btn" onclick="openEditor()">
-            ✨ Create Surprise
-        </button>
+        <div class="center">
+            <button class="primary" onclick="openEditor()">
+                ✨ Create Surprise
+            </button>
+        </div>
     </div>
-</section>
 
 
-<!-- EDITOR -->
-<section id="editor" class="editor hidden">
+    <!-- EDITOR -->
+    <div id="editorScreen" class="card hidden">
 
-    <div class="container">
+        <h1>🎨 Create Your Surprise</h1>
 
-        <div class="topbar">
-            <div class="logo">💖 Surprise Maker</div>
+        <label>Name</label>
+        <input id="personName" placeholder="Enter person's name">
 
-            <button class="small-btn" onclick="goHome()">
-                ← Home
+        <label>Relationship</label>
+        <input id="relationship" placeholder="e.g. Friend, Sister, Brother, Birthday">
+
+        <h2 style="margin:20px 0;">📖 Pages</h2>
+
+        <div id="pagesContainer"></div>
+
+        <div class="center">
+            <button class="blue" onclick="addPage()">
+                ➕ Add Page
+            </button>
+
+            <button class="primary" onclick="startPreview()">
+                👀 Preview
+            </button>
+
+            <button class="success" onclick="generateShareLink()">
+                🔗 Generate Share Link
+            </button>
+
+            <button class="secondary" onclick="goHome()">
+                ← Back
             </button>
         </div>
 
-        <div class="card">
+        <div id="shareResult" class="share-box hidden">
 
-            <label>Who is this surprise for?</label>
+            <h2>🎉 Your Surprise Link Is Ready!</h2>
 
-            <input
-                id="personName"
-                type="text"
-                placeholder="Example: Anees"
-                oninput="saveDraft()"
-            >
+            <div id="shareLink" class="share-link"></div>
 
-            <label>Relationship</label>
+            <div class="center">
 
-            <input
-                id="relationship"
-                type="text"
-                placeholder="Example: Best Friend / Love / Sister"
-                oninput="saveDraft()"
-            >
+                <button class="success" onclick="copyShareLink()">
+                    📋 Copy Link
+                </button>
 
-        </div>
-
-        <br>
-
-        <div class="card">
-
-            <div class="pages-title">
-
-                <h2>📖 Surprise Pages</h2>
-
-                <button class="small-btn" onclick="addPage()">
-                    + Add Page
+                <button class="blue" onclick="shareWhatsApp()">
+                    💬 WhatsApp
                 </button>
 
             </div>
 
-            <div id="pagesContainer"></div>
-
-            <button class="preview-btn" onclick="startPreview()">
-                👀 Preview Surprise
-            </button>
+            <p id="copyStatus" class="center" style="margin-top:10px;"></p>
 
         </div>
 
     </div>
 
-</section>
 
+    <!-- PREVIEW -->
+    <div id="previewScreen" class="card hidden">
 
-<!-- PREVIEW -->
-<section id="preview" class="preview hidden">
+        <div id="previewContent" class="preview"></div>
 
-    <div class="scene">
+        <div class="center">
 
-        <small id="sceneNumber"></small>
-
-        <div id="sceneContent"></div>
-
-        <div class="nav-buttons">
-
-            <button
-                id="backBtn"
-                class="nav-btn"
-                onclick="previousPage()">
-                ← Back
+            <button class="secondary" onclick="previousPage()">
+                ← Previous
             </button>
 
-            <button
-                id="nextBtn"
-                class="nav-btn primary"
-                onclick="nextPage()">
+            <button class="primary" onclick="nextPage()">
                 Next →
             </button>
 
-            <button
-                class="nav-btn"
-                onclick="exitPreview()">
-                ✏️ Edit
+            <button class="secondary" onclick="exitPreview()">
+                ✕ Exit
             </button>
 
         </div>
 
-        <div id="counter" class="counter"></div>
-
     </div>
 
-</section>
+
+    <!-- LOADING -->
+    <div id="loadingScreen" class="card hidden">
+        <div class="loading">
+            ⏳ Loading surprise...
+        </div>
+    </div>
+
+</div>
 
 
 <script>
+
+/* =========================================
+   SUPABASE
+========================================= */
+
+const SUPABASE_URL =
+"https://btebgzjuepipcyrntwkf.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_98CPwoSA9_GqfmE1mEDryw_vJwYxJZq";
+
+const supabaseClient =
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+
+/* =========================================
+   DATA
+========================================= */
 
 let pages = [];
 
 let currentPage = 0;
 
+let loadedSharedSurprise = false;
 
-/* DEFAULT PAGE */
 
-function defaultPages(){
+/* =========================================
+   DEFAULT PAGE
+========================================= */
 
-    return [
+function createDefaultPage(){
 
-        {
-            type:"message",
-            title:"A Little Surprise ❤️",
-            message:"I made something special for you..."
-        },
-
-        {
-            type:"messagePhoto",
-            title:"A Special Memory",
-            message:"Some moments deserve to be remembered forever.",
-            image:""
-        },
-
-        {
-            type:"question",
-            title:"One Little Question...",
-            message:"Are you ready for the final surprise?"
-        },
-
-        {
-            type:"final",
-            title:"For You ❤️",
-            message:"You are truly special. Never forget that."
-        }
-
-    ];
+    return {
+        type:"message",
+        title:"A Special Message ❤️",
+        message:"Write your beautiful message here..."
+    };
 
 }
 
 
-/* OPEN EDITOR */
+/* =========================================
+   HOME
+========================================= */
 
 function openEditor(){
 
-    document.getElementById("home").classList.add("hidden");
-    document.getElementById("preview").classList.add("hidden");
-    document.getElementById("editor").classList.remove("hidden");
+    document.getElementById("homeScreen")
+        .classList.add("hidden");
+
+    document.getElementById("editorScreen")
+        .classList.remove("hidden");
+
+    loadedSharedSurprise = false;
 
     loadDraft();
 
 }
 
 
-/* HOME */
+/* =========================================
+   GO HOME
+========================================= */
 
 function goHome(){
 
-    document.getElementById("editor").classList.add("hidden");
-    document.getElementById("preview").classList.add("hidden");
-    document.getElementById("home").classList.remove("hidden");
+    document.getElementById("editorScreen")
+        .classList.add("hidden");
+
+    document.getElementById("previewScreen")
+        .classList.add("hidden");
+
+    document.getElementById("homeScreen")
+        .classList.remove("hidden");
 
 }
 
 
-/* ADD PAGE */
+/* =========================================
+   ADD PAGE
+========================================= */
 
 function addPage(){
 
-    pages.push({
+    pages.push(createDefaultPage());
 
-        type:"message",
-
-        title:"New Page",
-
-        message:"Write your message here..."
-
-    });
-
-    renderPages();
-
-    saveDraft();
+    renderEditor();
 
 }
 
 
-/* DELETE PAGE */
+/* =========================================
+   RENDER EDITOR
+========================================= */
 
-function deletePage(index){
-
-    if(pages.length <= 1){
-
-        alert("At least one page is required.");
-
-        return;
-
-    }
-
-    pages.splice(index,1);
-
-    renderPages();
-
-    saveDraft();
-
-}
-
-
-/* CHANGE PAGE TYPE */
-
-function changeType(index,value){
-
-    pages[index].type = value;
-
-    if(value === "message"){
-
-        pages[index].image = undefined;
-
-    }
-
-    if(value === "photo"){
-
-        pages[index].image = pages[index].image || "";
-
-    }
-
-    if(value === "messagePhoto"){
-
-        pages[index].image = pages[index].image || "";
-
-    }
-
-    renderPages();
-
-    saveDraft();
-
-}
-
-
-/* RENDER EDITOR */
-
-function renderPages(){
+function renderEditor(){
 
     const container =
         document.getElementById("pagesContainer");
@@ -646,185 +418,115 @@ function renderPages(){
 
     pages.forEach((page,index)=>{
 
-        const card =
+        const box =
             document.createElement("div");
 
-        card.className = "page-card";
+        box.className = "page-box";
 
-        let extra = "";
+        box.innerHTML = `
 
+            <div class="page-header">
 
-        if(
-            page.type === "message" ||
-            page.type === "messagePhoto" ||
-            page.type === "question" ||
-            page.type === "final"
-        ){
-
-            extra += `
-
-                <label>Page Title</label>
-
-                <input
-                    type="text"
-                    value="${escapeHTML(page.title || "")}"
-                    placeholder="Page title"
-                    oninput="updatePage(${index},'title',this.value)"
-                >
-
-            `;
-
-        }
-
-
-        if(
-            page.type === "message" ||
-            page.type === "messagePhoto" ||
-            page.type === "question" ||
-            page.type === "final"
-        ){
-
-            extra += `
-
-                <label>Message</label>
-
-                <textarea
-                    placeholder="Write your message..."
-                    oninput="updatePage(${index},'message',this.value)"
-                >${escapeHTML(page.message || "")}</textarea>
-
-            `;
-
-        }
-
-
-        if(
-            page.type === "photo" ||
-            page.type === "messagePhoto"
-        ){
-
-            extra += `
-
-                <label>Choose Photo</label>
-
-                <input
-                    type="file"
-                    accept="image/*"
-                    onchange="uploadPhoto(${index},this)"
-                >
-
-            `;
-
-            if(page.image){
-
-                extra += `
-
-                    <img
-                        src="${page.image}"
-                        style="
-                            width:100%;
-                            max-height:220px;
-                            object-fit:cover;
-                            border-radius:15px;
-                            margin-bottom:15px;
-                        "
-                    >
-
-                `;
-
-            }
-
-        }
-
-
-        if(page.type === "question"){
-
-            extra += `
-
-                <label>Question Type</label>
-
-                <div style="
-                    padding:12px;
-                    border-radius:12px;
-                    background:#ffffff08;
-                    color:#aaa;
-                    margin-bottom:15px;
-                ">
-                    This page will show Yes / No buttons.
-                </div>
-
-            `;
-
-        }
-
-
-        card.innerHTML = `
-
-            <div class="page-head">
-
-                <div class="page-number">
-                    PAGE ${index + 1}
-                </div>
+                <h3>Page ${index + 1}</h3>
 
                 <button
-                    class="delete-btn"
+                    class="danger"
                     onclick="deletePage(${index})">
                     🗑 Delete
                 </button>
 
             </div>
 
-
             <label>Page Type</label>
 
             <select
-                onchange="changeType(${index},this.value)"
-            >
+                onchange="changePageType(${index},this.value)">
 
-                <option
-                    value="message"
-                    ${page.type==="message" ? "selected":""}>
-                    💌 Message
+                <option value="message"
+                    ${page.type==="message"?"selected":""}>
+                    Message
                 </option>
 
-                <option
-                    value="photo"
-                    ${page.type==="photo" ? "selected":""}>
-                    🖼️ Photo
+                <option value="photo"
+                    ${page.type==="photo"?"selected":""}>
+                    Photo
                 </option>
 
-                <option
-                    value="messagePhoto"
-                    ${page.type==="messagePhoto" ? "selected":""}>
-                    💖 Message + Photo
+                <option value="messagePhoto"
+                    ${page.type==="messagePhoto"?"selected":""}>
+                    Message + Photo
                 </option>
 
-                <option
-                    value="question"
-                    ${page.type==="question" ? "selected":""}>
-                    ❓ Question
+                <option value="question"
+                    ${page.type==="question"?"selected":""}>
+                    Question
                 </option>
 
-                <option
-                    value="final"
-                    ${page.type==="final" ? "selected":""}>
-                    🎉 Final Surprise
+                <option value="final"
+                    ${page.type==="final"?"selected":""}>
+                    Final Surprise
                 </option>
 
             </select>
 
-            ${extra}
+            <label>Title</label>
+
+            <input
+                value="${escapeHtml(page.title || "")}"
+                onchange="updatePage(${index},'title',this.value)"
+                placeholder="Page title">
+
+            ${
+                page.type !== "photo"
+                ?
+                `
+                <label>Message</label>
+
+                <textarea
+                    onchange="updatePage(${index},'message',this.value)"
+                    placeholder="Write your message...">${escapeHtml(page.message || "")}</textarea>
+                `
+                :
+                ""
+            }
+
+            ${
+                page.type==="photo" ||
+                page.type==="messagePhoto"
+                ?
+                `
+                <label>Photo</label>
+
+                <input
+                    type="file"
+                    accept="image/*"
+                    onchange="uploadImage(event,${index})">
+
+                ${
+                    page.image
+                    ?
+                    `<img src="${page.image}"
+                          style="max-width:180px;border-radius:12px;margin-top:10px;">`
+                    :
+                    ""
+                }
+                `
+                :
+                ""
+            }
 
         `;
 
-        container.appendChild(card);
+        container.appendChild(box);
 
     });
 
 }
 
 
-/* UPDATE PAGE */
+/* =========================================
+   UPDATE PAGE
+========================================= */
 
 function updatePage(index,key,value){
 
@@ -835,13 +537,64 @@ function updatePage(index,key,value){
 }
 
 
-/* PHOTO */
+/* =========================================
+   CHANGE PAGE TYPE
+========================================= */
 
-function uploadPhoto(index,input){
+function changePageType(index,type){
 
-    const file = input.files[0];
+    pages[index].type = type;
+
+    if(type==="message"){
+        pages[index].message =
+            pages[index].message || "";
+    }
+
+    renderEditor();
+
+    saveDraft();
+
+}
+
+
+/* =========================================
+   DELETE PAGE
+========================================= */
+
+function deletePage(index){
+
+    if(pages.length <= 1){
+
+        alert("At least one page is required.");
+
+        return;
+    }
+
+    pages.splice(index,1);
+
+    renderEditor();
+
+    saveDraft();
+
+}
+
+
+/* =========================================
+   IMAGE UPLOAD
+========================================= */
+
+function uploadImage(event,index){
+
+    const file = event.target.files[0];
 
     if(!file) return;
+
+    if(file.size > 3 * 1024 * 1024){
+
+        alert("Please choose an image smaller than 3MB.");
+
+        return;
+    }
 
     const reader = new FileReader();
 
@@ -849,7 +602,7 @@ function uploadPhoto(index,input){
 
         pages[index].image = e.target.result;
 
-        renderPages();
+        renderEditor();
 
         saveDraft();
 
@@ -860,7 +613,76 @@ function uploadPhoto(index,input){
 }
 
 
-/* START PREVIEW */
+/* =========================================
+   SAVE DRAFT
+========================================= */
+
+function saveDraft(){
+
+    const draft = {
+
+        name:
+        document.getElementById("personName").value,
+
+        relationship:
+        document.getElementById("relationship").value,
+
+        pages:pages
+
+    };
+
+    localStorage.setItem(
+        "surpriseMakerDraft",
+        JSON.stringify(draft)
+    );
+
+}
+
+
+/* =========================================
+   LOAD DRAFT
+========================================= */
+
+function loadDraft(){
+
+    const saved =
+        localStorage.getItem("surpriseMakerDraft");
+
+    if(saved){
+
+        try{
+
+            const draft = JSON.parse(saved);
+
+            document.getElementById("personName").value =
+                draft.name || "";
+
+            document.getElementById("relationship").value =
+                draft.relationship || "";
+
+            pages =
+                draft.pages || [createDefaultPage()];
+
+        }catch(error){
+
+            pages = [createDefaultPage()];
+
+        }
+
+    }else{
+
+        pages = [createDefaultPage()];
+
+    }
+
+    renderEditor();
+
+}
+
+
+/* =========================================
+   PREVIEW
+========================================= */
 
 function startPreview(){
 
@@ -869,184 +691,132 @@ function startPreview(){
 
     if(!name){
 
-        alert("Please enter the person's name first.");
+        alert("Please enter a name first.");
 
         return;
-
     }
 
-    if(pages.length === 0){
-
-        alert("Please add at least one page.");
-
-        return;
-
-    }
+    saveDraft();
 
     currentPage = 0;
 
-    document.getElementById("editor").classList.add("hidden");
+    document.getElementById("editorScreen")
+        .classList.add("hidden");
 
-    document.getElementById("preview").classList.remove("hidden");
+    document.getElementById("previewScreen")
+        .classList.remove("hidden");
 
     showPage();
+
+    createHearts();
 
 }
 
 
-/* SHOW PAGE */
+/* =========================================
+   SHOW PAGE
+========================================= */
 
 function showPage(){
 
     const page = pages[currentPage];
 
+    if(!page) return;
+
     const name =
-        document.getElementById("personName").value || "You";
-
-    const relationship =
-        document.getElementById("relationship").value || "Someone Special";
-
-
-    document.getElementById("sceneNumber").textContent =
-        `FOR ${name.toUpperCase()} • ${relationship.toUpperCase()}`;
-
+        document.getElementById("personName").value;
 
     let html = "";
 
+    html += `<h1>${escapeHtml(page.title || "")}</h1>`;
 
-    if(page.type === "message"){
+    if(page.type==="message"){
 
-        html = `
-
-            <h1>${escapeHTML(page.title)}</h1>
-
-            <p>${escapeHTML(page.message)}</p>
-
+        html += `
+            <div class="big-message">
+                ${formatText(page.message)}
+            </div>
         `;
 
     }
 
+    else if(page.type==="photo"){
 
-    if(page.type === "photo"){
+        if(page.image){
 
-        html = `
+            html += `
+                <img src="${page.image}">
+            `;
 
-            <h1>${escapeHTML(page.title || "A Special Photo")}</h1>
-
-            ${
-                page.image
-                ?
-                `<img src="${page.image}">`
-                :
-                `<p>📷 No photo added yet.</p>`
-            }
-
-        `;
+        }
 
     }
 
+    else if(page.type==="messagePhoto"){
 
-    if(page.type === "messagePhoto"){
-
-        html = `
-
-            <h1>${escapeHTML(page.title)}</h1>
-
-            ${
-                page.image
-                ?
-                `<img src="${page.image}">`
-                :
-                ""
-            }
-
-            <p>${escapeHTML(page.message)}</p>
-
+        html += `
+            <div class="big-message">
+                ${formatText(page.message)}
+            </div>
         `;
+
+        if(page.image){
+
+            html += `
+                <img src="${page.image}">
+            `;
+
+        }
 
     }
 
+    else if(page.type==="question"){
 
-    if(page.type === "question"){
+        html += `
+            <div class="big-message">
+                ${formatText(page.message)}
+            </div>
 
-        html = `
-
-            <h1>${escapeHTML(page.title)}</h1>
-
-            <p>${escapeHTML(page.message)}</p>
-
-            <div class="question-buttons">
+            <div>
 
                 <button
-                    class="yes-btn"
+                    class="success"
                     onclick="answerYes()">
                     ❤️ Yes
                 </button>
 
                 <button
-                    class="no-btn"
+                    class="secondary"
                     onclick="answerNo()">
                     No
                 </button>
 
             </div>
-
         `;
 
     }
 
+    else if(page.type==="final"){
 
-    if(page.type === "final"){
-
-        html = `
-
-            <div style="font-size:70px">
-                💖
+        html += `
+            <div class="big-message">
+                ${formatText(page.message)}
             </div>
 
-            <h1>${escapeHTML(page.title)}</h1>
-
-            <p>${escapeHTML(page.message)}</p>
-
-            <div style="
-                font-size:45px;
-                margin-top:25px;
-            ">
-                ✨ 💕 ✨
-            </div>
-
+            <h2>💖 The End 💖</h2>
         `;
 
     }
 
-
-    document.getElementById("sceneContent").innerHTML = html;
-
-
-    document.getElementById("counter").textContent =
-        `Page ${currentPage + 1} of ${pages.length}`;
-
-
-    document.getElementById("backBtn").style.display =
-        currentPage === 0 ? "none" : "inline-block";
-
-
-    document.getElementById("nextBtn").textContent =
-        currentPage === pages.length - 1
-        ? "🎉 Finish"
-        : "Next →";
-
-
-    if(page.type === "final"){
-
-        startHearts();
-
-    }
+    document.getElementById("previewContent")
+        .innerHTML = html;
 
 }
 
 
-/* NEXT */
+/* =========================================
+   NEXT
+========================================= */
 
 function nextPage(){
 
@@ -1056,18 +826,20 @@ function nextPage(){
 
         showPage();
 
+        createHearts();
+
     }else{
 
-        startHearts();
-
-        alert("❤️ Surprise completed!");
+        alert("This is the final page ❤️");
 
     }
 
 }
 
 
-/* BACK */
+/* =========================================
+   PREVIOUS
+========================================= */
 
 function previousPage(){
 
@@ -1082,145 +854,344 @@ function previousPage(){
 }
 
 
-/* QUESTION YES */
+/* =========================================
+   ANSWERS
+========================================= */
 
 function answerYes(){
 
-    createHearts();
+    alert("Awww ❤️ You said YES!");
 
-    alert("❤️ I knew it!");
+    createHearts();
 
 }
 
-
-/* QUESTION NO */
 
 function answerNo(){
 
-    alert("😄 You can still continue...");
+    alert("That's okay 😄");
 
 }
 
 
-/* EXIT PREVIEW */
+/* =========================================
+   EXIT PREVIEW
+========================================= */
 
 function exitPreview(){
 
-    document.getElementById("preview").classList.add("hidden");
+    if(loadedSharedSurprise){
 
-    document.getElementById("editor").classList.remove("hidden");
+        location.href =
+            location.origin + location.pathname;
+
+        return;
+
+    }
+
+    document.getElementById("previewScreen")
+        .classList.add("hidden");
+
+    document.getElementById("editorScreen")
+        .classList.remove("hidden");
 
 }
 
 
-/* HEARTS */
+/* =========================================
+   HEARTS
+========================================= */
 
 function createHearts(){
 
-    for(let i=0;i<25;i++){
+    for(let i=0;i<10;i++){
 
         const heart =
             document.createElement("div");
 
         heart.className = "heart";
 
-        heart.textContent =
-            ["❤️","💖","💕","💗","💓"][Math.floor(Math.random()*5)];
+        heart.innerHTML = "❤️";
 
         heart.style.left =
-            Math.random()*100 + "vw";
+            Math.random()*100 + "%";
 
         heart.style.animationDuration =
-            (2 + Math.random()*3) + "s";
+            (3 + Math.random()*3) + "s";
 
         document.body.appendChild(heart);
 
         setTimeout(()=>{
             heart.remove();
-        },5000);
+        },6000);
 
     }
 
 }
 
 
-function startHearts(){
+/* =========================================
+   GENERATE SHARE LINK
+========================================= */
 
-    createHearts();
+async function generateShareLink(){
 
-    setTimeout(createHearts,800);
+    const name =
+        document.getElementById("personName")
+        .value.trim();
+
+    const relationship =
+        document.getElementById("relationship")
+        .value.trim();
+
+    if(!name){
+
+        alert("Please enter a name first.");
+
+        return;
+    }
+
+    if(!pages.length){
+
+        alert("Please add at least one page.");
+
+        return;
+    }
+
+    saveDraft();
+
+    const button =
+        document.querySelector(
+            'button[onclick="generateShareLink()"]'
+        );
+
+    button.disabled = true;
+
+    button.innerText = "⏳ Saving...";
+
+    try{
+
+        const {data,error} =
+            await supabaseClient
+            .from("surprises")
+            .insert({
+
+                name:name,
+
+                relationship:relationship,
+
+                pages:pages
+
+            })
+            .select("id")
+            .single();
+
+        if(error){
+
+            console.error(error);
+
+            alert(
+                "Surprise save nahi ho saki:\n\n"
+                + error.message
+            );
+
+            return;
+        }
+
+        const shareUrl =
+            location.origin +
+            location.pathname +
+            "?id=" +
+            data.id;
+
+        document.getElementById("shareLink")
+            .innerText = shareUrl;
+
+        document.getElementById("shareResult")
+            .classList.remove("hidden");
+
+        window.currentShareUrl = shareUrl;
+
+        alert("🎉 Surprise successfully saved!");
+
+    }catch(error){
+
+        console.error(error);
+
+        alert(
+            "Something went wrong:\n\n"
+            + error.message
+        );
+
+    }finally{
+
+        button.disabled = false;
+
+        button.innerText =
+            "🔗 Generate Share Link";
+
+    }
 
 }
 
 
-/* SAVE */
+/* =========================================
+   COPY LINK
+========================================= */
 
-function saveDraft(){
+async function copyShareLink(){
 
-    const data = {
+    const link =
+        window.currentShareUrl;
 
-        name:
-            document.getElementById("personName")?.value || "",
+    if(!link) return;
 
-        relationship:
-            document.getElementById("relationship")?.value || "",
+    try{
 
-        pages:pages
+        await navigator.clipboard.writeText(link);
 
-    };
+        document.getElementById("copyStatus")
+            .innerText =
+            "✅ Link copied!";
 
-    localStorage.setItem(
-        "surpriseMakerDraft",
-        JSON.stringify(data)
+    }catch(error){
+
+        prompt(
+            "Copy this link:",
+            link
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   WHATSAPP
+========================================= */
+
+function shareWhatsApp(){
+
+    const link =
+        window.currentShareUrl;
+
+    if(!link) return;
+
+    const message =
+        "I made a special surprise for you ❤️\n\n"
+        + link;
+
+    const whatsappUrl =
+        "https://wa.me/?text="
+        + encodeURIComponent(message);
+
+    window.open(
+        whatsappUrl,
+        "_blank"
     );
 
 }
 
 
-/* LOAD */
+/* =========================================
+   LOAD SHARED SURPRISE
+========================================= */
 
-function loadDraft(){
+async function loadSharedSurprise(id){
 
-    const saved =
-        localStorage.getItem("surpriseMakerDraft");
+    document.getElementById("homeScreen")
+        .classList.add("hidden");
 
-    if(saved){
+    document.getElementById("editorScreen")
+        .classList.add("hidden");
 
-        try{
+    document.getElementById("previewScreen")
+        .classList.add("hidden");
 
-            const data = JSON.parse(saved);
+    document.getElementById("loadingScreen")
+        .classList.remove("hidden");
 
-            document.getElementById("personName").value =
-                data.name || "";
+    try{
 
-            document.getElementById("relationship").value =
-                data.relationship || "";
+        const {data,error} =
+            await supabaseClient
+            .from("surprises")
+            .select("name,relationship,pages")
+            .eq("id",id)
+            .single();
 
-            pages =
-                data.pages && data.pages.length
-                ? data.pages
-                : defaultPages();
+        if(error){
 
-        }catch(error){
+            console.error(error);
 
-            pages = defaultPages();
+            throw error;
 
         }
 
-    }else{
+        if(!data){
 
-        pages = defaultPages();
+            throw new Error(
+                "Surprise not found."
+            );
+
+        }
+
+        document.getElementById("personName")
+            .value = data.name || "";
+
+        document.getElementById("relationship")
+            .value = data.relationship || "";
+
+        pages =
+            data.pages || [];
+
+        if(!pages.length){
+
+            throw new Error(
+                "This surprise has no pages."
+            );
+
+        }
+
+        loadedSharedSurprise = true;
+
+        currentPage = 0;
+
+        document.getElementById("loadingScreen")
+            .classList.add("hidden");
+
+        document.getElementById("previewScreen")
+            .classList.remove("hidden");
+
+        showPage();
+
+        createHearts();
+
+    }catch(error){
+
+        console.error(error);
+
+        document.getElementById("loadingScreen")
+            .classList.add("hidden");
+
+        document.getElementById("homeScreen")
+            .classList.remove("hidden");
+
+        alert(
+            "Surprise load nahi ho saki.\n\n"
+            + error.message
+        );
 
     }
-
-    renderPages();
 
 }
 
 
-/* ESCAPE HTML */
+/* =========================================
+   ESCAPE HTML
+========================================= */
 
-function escapeHTML(value){
+function escapeHtml(value){
 
     return String(value || "")
         .replace(/&/g,"&amp;")
@@ -1232,9 +1203,63 @@ function escapeHTML(value){
 }
 
 
-/* INITIAL */
+/* =========================================
+   FORMAT TEXT
+========================================= */
 
-loadDraft();
+function formatText(text){
+
+    return escapeHtml(text)
+        .replace(/\n/g,"<br>");
+
+}
+
+
+/* =========================================
+   AUTO LOAD
+========================================= */
+
+window.addEventListener("DOMContentLoaded",()=>{
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const surpriseId =
+        params.get("id");
+
+    if(surpriseId){
+
+        loadSharedSurprise(surpriseId);
+
+    }else{
+
+        // Home screen only
+        document.getElementById("homeScreen")
+            .classList.remove("hidden");
+
+    }
+
+});
+
+
+/* =========================================
+   AUTO SAVE INPUTS
+========================================= */
+
+document.addEventListener("input",(event)=>{
+
+    if(
+        event.target.id === "personName" ||
+        event.target.id === "relationship"
+    ){
+
+        saveDraft();
+
+    }
+
+});
 
 </script>
 
