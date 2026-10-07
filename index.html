@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surprise Maker ❤️</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    min-height:100vh;
+    color:white;
+    background:
+        radial-gradient(circle at top left,#4c1d95,transparent 35%),
+        radial-gradient(circle at bottom right,#be185d,transparent 35%),
+        #080812;
+    overflow-x:hidden;
+}
+
+button,input,textarea,select{
+    font:inherit;
+}
+
+.container{
+    width:min(1000px,92%);
+    margin:auto;
+    padding:35px 0;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* HOME */
+
+.home{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+}
+
+.hero{
+    width:min(700px,100%);
+    padding:45px 25px;
+}
+
+.gift{
+    font-size:80px;
+    animation:float 2s ease-in-out infinite;
+}
+
+@keyframes float{
+    50%{transform:translateY(-12px)}
+}
+
+.hero h1{
+    font-size:clamp(38px,8vw,70px);
+    margin:15px 0;
+    background:linear-gradient(90deg,#fff,#f9a8d4,#c4b5fd);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.hero p{
+    color:#d4d4d8;
+    font-size:18px;
+    margin-bottom:30px;
+}
+
+.main-btn{
+    border:0;
+    padding:15px 30px;
+    border-radius:50px;
+    color:white;
+    background:linear-gradient(135deg,#ec4899,#8b5cf6);
+    cursor:pointer;
+    font-weight:bold;
+    box-shadow:0 10px 30px #0005;
+    transition:.25s;
+}
+
+.main-btn:hover{
+    transform:translateY(-3px) scale(1.02);
+}
+
+/* EDITOR */
+
+.editor{
+    min-height:100vh;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.card{
+    background:#ffffff0d;
+    border:1px solid #ffffff18;
+    backdrop-filter:blur(15px);
+    border-radius:22px;
+    padding:25px;
+    box-shadow:0 15px 40px #0004;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    color:#ddd;
+    font-weight:bold;
+}
+
+input,textarea,select{
+    width:100%;
+    padding:13px 15px;
+    border:1px solid #ffffff20;
+    border-radius:12px;
+    background:#0005;
+    color:white;
+    outline:none;
+    margin-bottom:18px;
+}
+
+textarea{
+    min-height:120px;
+    resize:vertical;
+}
+
+option{
+    background:#181824;
+}
+
+.pages-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+}
+
+.pages-title h2{
+    font-size:22px;
+}
+
+.small-btn{
+    border:1px solid #ffffff20;
+    background:#ffffff10;
+    color:white;
+    padding:10px 15px;
+    border-radius:12px;
+    cursor:pointer;
+}
+
+.small-btn:hover{
+    background:#ffffff20;
+}
+
+.page-card{
+    border:1px solid #ffffff18;
+    background:#ffffff08;
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:18px;
+}
+
+.page-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.page-number{
+    font-weight:bold;
+    color:#f9a8d4;
+}
+
+.delete-btn{
+    border:0;
+    background:#ef444422;
+    color:#fca5a5;
+    padding:8px 12px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.preview-btn{
+    width:100%;
+    margin-top:10px;
+    padding:16px;
+    border:0;
+    border-radius:14px;
+    background:linear-gradient(135deg,#8b5cf6,#ec4899);
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:17px;
+}
+
+/* PREVIEW */
+
+.preview{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:25px;
+    position:relative;
+}
+
+.scene{
+    width:min(700px,100%);
+    min-height:550px;
+    background:#ffffff0d;
+    border:1px solid #ffffff20;
+    backdrop-filter:blur(20px);
+    border-radius:30px;
+    padding:35px;
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    box-shadow:0 20px 70px #0007;
+}
+
+.scene small{
+    color:#f9a8d4;
+    font-weight:bold;
+    letter-spacing:2px;
+    margin-bottom:15px;
+}
+
+.scene h1{
+    font-size:clamp(30px,7vw,55px);
+    margin-bottom:20px;
+}
+
+.scene p{
+    color:#ddd;
+    font-size:18px;
+    line-height:1.8;
+    white-space:pre-line;
+}
+
+.scene img{
+    width:min(100%,500px);
+    max-height:350px;
+    object-fit:cover;
+    border-radius:20px;
+    margin:20px auto;
+    box-shadow:0 15px 40px #0006;
+}
+
+.nav-buttons{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    margin-top:30px;
+    flex-wrap:wrap;
+}
+
+.nav-btn{
+    border:1px solid #ffffff25;
+    background:#ffffff12;
+    color:white;
+    padding:12px 22px;
+    border-radius:30px;
+    cursor:pointer;
+}
+
+.nav-btn.primary{
+    background:linear-gradient(135deg,#ec4899,#8b5cf6);
+    border:0;
+}
+
+.counter{
+    margin-top:18px;
+    color:#aaa;
+    font-size:14px;
+}
+
+/* QUESTION */
+
+.question-buttons{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin-top:30px;
+}
+
+.yes-btn{
+    background:#ec4899;
+    color:white;
+    border:0;
+    padding:14px 30px;
+    border-radius:30px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.no-btn{
+    background:#ffffff12;
+    color:white;
+    border:1px solid #ffffff20;
+    padding:14px 30px;
+    border-radius:30px;
+    cursor:pointer;
+}
+
+/* HEARTS */
+
+.heart{
+    position:fixed;
+    pointer-events:none;
+    animation:heartFall 4s linear forwards;
+    font-size:25px;
+    z-index:100;
+}
+
+@keyframes heartFall{
+    0%{
+        transform:translateY(-50px) rotate(0);
+        opacity:1;
+    }
+    100%{
+        transform:translateY(110vh) rotate(360deg);
+        opacity:0;
+    }
+}
+
+@media(max-width:600px){
+
+    .container{
+        width:94%;
+        padding:20px 0;
+    }
+
+    .card{
+        padding:18px;
+    }
+
+    .scene{
+        min-height:600px;
+        padding:25px 18px;
+    }
+
+    .topbar{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .page-head{
+        align-items:flex-start;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HOME -->
+<section id="home" class="home">
+    <div class="hero">
+        <div class="gift">🎁</div>
+
+        <h1>Surprise Maker</h1>
+
+        <p>
+            Create a beautiful surprise journey for someone special.
+            Add messages, photos, questions and memories.
+        </p>
+
+        <button class="main-btn" onclick="openEditor()">
+            ✨ Create Surprise
+        </button>
+    </div>
+</section>
+
+
+<!-- EDITOR -->
+<section id="editor" class="editor hidden">
+
+    <div class="container">
+
+        <div class="topbar">
+            <div class="logo">💖 Surprise Maker</div>
+
+            <button class="small-btn" onclick="goHome()">
+                ← Home
+            </button>
+        </div>
+
+        <div class="card">
+
+            <label>Who is this surprise for?</label>
+
+            <input
+                id="personName"
+                type="text"
+                placeholder="Example: Anees"
+                oninput="saveDraft()"
+            >
+
+            <label>Relationship</label>
+
+            <input
+                id="relationship"
+                type="text"
+                placeholder="Example: Best Friend / Love / Sister"
+                oninput="saveDraft()"
+            >
+
+        </div>
+
+        <br>
+
+        <div class="card">
+
+            <div class="pages-title">
+
+                <h2>📖 Surprise Pages</h2>
+
+                <button class="small-btn" onclick="addPage()">
+                    + Add Page
+                </button>
+
+            </div>
+
+            <div id="pagesContainer"></div>
+
+            <button class="preview-btn" onclick="startPreview()">
+                👀 Preview Surprise
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PREVIEW -->
+<section id="preview" class="preview hidden">
+
+    <div class="scene">
+
+        <small id="sceneNumber"></small>
+
+        <div id="sceneContent"></div>
+
+        <div class="nav-buttons">
+
+            <button
+                id="backBtn"
+                class="nav-btn"
+                onclick="previousPage()">
+                ← Back
+            </button>
+
+            <button
+                id="nextBtn"
+                class="nav-btn primary"
+                onclick="nextPage()">
+                Next →
+            </button>
+
+            <button
+                class="nav-btn"
+                onclick="exitPreview()">
+                ✏️ Edit
+            </button>
+
+        </div>
+
+        <div id="counter" class="counter"></div>
+
+    </div>
+
+</section>
+
+
+<script>
+
+let pages = [];
+
+let currentPage = 0;
+
+
+/* DEFAULT PAGE */
+
+function defaultPages(){
+
+    return [
+
+        {
+            type:"message",
+            title:"A Little Surprise ❤️",
+            message:"I made something special for you..."
+        },
+
+        {
+            type:"messagePhoto",
+            title:"A Special Memory",
+            message:"Some moments deserve to be remembered forever.",
+            image:""
+        },
+
+        {
+            type:"question",
+            title:"One Little Question...",
+            message:"Are you ready for the final surprise?"
+        },
+
+        {
+            type:"final",
+            title:"For You ❤️",
+            message:"You are truly special. Never forget that."
+        }
+
+    ];
+
+}
+
+
+/* OPEN EDITOR */
+
+function openEditor(){
+
+    document.getElementById("home").classList.add("hidden");
+    document.getElementById("preview").classList.add("hidden");
+    document.getElementById("editor").classList.remove("hidden");
+
+    loadDraft();
+
+}
+
+
+/* HOME */
+
+function goHome(){
+
+    document.getElementById("editor").classList.add("hidden");
+    document.getElementById("preview").classList.add("hidden");
+    document.getElementById("home").classList.remove("hidden");
+
+}
+
+
+/* ADD PAGE */
+
+function addPage(){
+
+    pages.push({
+
+        type:"message",
+
+        title:"New Page",
+
+        message:"Write your message here..."
+
+    });
+
+    renderPages();
+
+    saveDraft();
+
+}
+
+
+/* DELETE PAGE */
+
+function deletePage(index){
+
+    if(pages.length <= 1){
+
+        alert("At least one page is required.");
+
+        return;
+
+    }
+
+    pages.splice(index,1);
+
+    renderPages();
+
+    saveDraft();
+
+}
+
+
+/* CHANGE PAGE TYPE */
+
+function changeType(index,value){
+
+    pages[index].type = value;
+
+    if(value === "message"){
+
+        pages[index].image = undefined;
+
+    }
+
+    if(value === "photo"){
+
+        pages[index].image = pages[index].image || "";
+
+    }
+
+    if(value === "messagePhoto"){
+
+        pages[index].image = pages[index].image || "";
+
+    }
+
+    renderPages();
+
+    saveDraft();
+
+}
+
+
+/* RENDER EDITOR */
+
+function renderPages(){
+
+    const container =
+        document.getElementById("pagesContainer");
+
+    container.innerHTML = "";
+
+    pages.forEach((page,index)=>{
+
+        const card =
+            document.createElement("div");
+
+        card.className = "page-card";
+
+        let extra = "";
+
+
+        if(
+            page.type === "message" ||
+            page.type === "messagePhoto" ||
+            page.type === "question" ||
+            page.type === "final"
+        ){
+
+            extra += `
+
+                <label>Page Title</label>
+
+                <input
+                    type="text"
+                    value="${escapeHTML(page.title || "")}"
+                    placeholder="Page title"
+                    oninput="updatePage(${index},'title',this.value)"
+                >
+
+            `;
+
+        }
+
+
+        if(
+            page.type === "message" ||
+            page.type === "messagePhoto" ||
+            page.type === "question" ||
+            page.type === "final"
+        ){
+
+            extra += `
+
+                <label>Message</label>
+
+                <textarea
+                    placeholder="Write your message..."
+                    oninput="updatePage(${index},'message',this.value)"
+                >${escapeHTML(page.message || "")}</textarea>
+
+            `;
+
+        }
+
+
+        if(
+            page.type === "photo" ||
+            page.type === "messagePhoto"
+        ){
+
+            extra += `
+
+                <label>Choose Photo</label>
+
+                <input
+                    type="file"
+                    accept="image/*"
+                    onchange="uploadPhoto(${index},this)"
+                >
+
+            `;
+
+            if(page.image){
+
+                extra += `
+
+                    <img
+                        src="${page.image}"
+                        style="
+                            width:100%;
+                            max-height:220px;
+                            object-fit:cover;
+                            border-radius:15px;
+                            margin-bottom:15px;
+                        "
+                    >
+
+                `;
+
+            }
+
+        }
+
+
+        if(page.type === "question"){
+
+            extra += `
+
+                <label>Question Type</label>
+
+                <div style="
+                    padding:12px;
+                    border-radius:12px;
+                    background:#ffffff08;
+                    color:#aaa;
+                    margin-bottom:15px;
+                ">
+                    This page will show Yes / No buttons.
+                </div>
+
+            `;
+
+        }
+
+
+        card.innerHTML = `
+
+            <div class="page-head">
+
+                <div class="page-number">
+                    PAGE ${index + 1}
+                </div>
+
+                <button
+                    class="delete-btn"
+                    onclick="deletePage(${index})">
+                    🗑 Delete
+                </button>
+
+            </div>
+
+
+            <label>Page Type</label>
+
+            <select
+                onchange="changeType(${index},this.value)"
+            >
+
+                <option
+                    value="message"
+                    ${page.type==="message" ? "selected":""}>
+                    💌 Message
+                </option>
+
+                <option
+                    value="photo"
+                    ${page.type==="photo" ? "selected":""}>
+                    🖼️ Photo
+                </option>
+
+                <option
+                    value="messagePhoto"
+                    ${page.type==="messagePhoto" ? "selected":""}>
+                    💖 Message + Photo
+                </option>
+
+                <option
+                    value="question"
+                    ${page.type==="question" ? "selected":""}>
+                    ❓ Question
+                </option>
+
+                <option
+                    value="final"
+                    ${page.type==="final" ? "selected":""}>
+                    🎉 Final Surprise
+                </option>
+
+            </select>
+
+            ${extra}
+
+        `;
+
+        container.appendChild(card);
+
+    });
+
+}
+
+
+/* UPDATE PAGE */
+
+function updatePage(index,key,value){
+
+    pages[index][key] = value;
+
+    saveDraft();
+
+}
+
+
+/* PHOTO */
+
+function uploadPhoto(index,input){
+
+    const file = input.files[0];
+
+    if(!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(e){
+
+        pages[index].image = e.target.result;
+
+        renderPages();
+
+        saveDraft();
+
+    };
+
+    reader.readAsDataURL(file);
+
+}
+
+
+/* START PREVIEW */
+
+function startPreview(){
+
+    const name =
+        document.getElementById("personName").value.trim();
+
+    if(!name){
+
+        alert("Please enter the person's name first.");
+
+        return;
+
+    }
+
+    if(pages.length === 0){
+
+        alert("Please add at least one page.");
+
+        return;
+
+    }
+
+    currentPage = 0;
+
+    document.getElementById("editor").classList.add("hidden");
+
+    document.getElementById("preview").classList.remove("hidden");
+
+    showPage();
+
+}
+
+
+/* SHOW PAGE */
+
+function showPage(){
+
+    const page = pages[currentPage];
+
+    const name =
+        document.getElementById("personName").value || "You";
+
+    const relationship =
+        document.getElementById("relationship").value || "Someone Special";
+
+
+    document.getElementById("sceneNumber").textContent =
+        `FOR ${name.toUpperCase()} • ${relationship.toUpperCase()}`;
+
+
+    let html = "";
+
+
+    if(page.type === "message"){
+
+        html = `
+
+            <h1>${escapeHTML(page.title)}</h1>
+
+            <p>${escapeHTML(page.message)}</p>
+
+        `;
+
+    }
+
+
+    if(page.type === "photo"){
+
+        html = `
+
+            <h1>${escapeHTML(page.title || "A Special Photo")}</h1>
+
+            ${
+                page.image
+                ?
+                `<img src="${page.image}">`
+                :
+                `<p>📷 No photo added yet.</p>`
+            }
+
+        `;
+
+    }
+
+
+    if(page.type === "messagePhoto"){
+
+        html = `
+
+            <h1>${escapeHTML(page.title)}</h1>
+
+            ${
+                page.image
+                ?
+                `<img src="${page.image}">`
+                :
+                ""
+            }
+
+            <p>${escapeHTML(page.message)}</p>
+
+        `;
+
+    }
+
+
+    if(page.type === "question"){
+
+        html = `
+
+            <h1>${escapeHTML(page.title)}</h1>
+
+            <p>${escapeHTML(page.message)}</p>
+
+            <div class="question-buttons">
+
+                <button
+                    class="yes-btn"
+                    onclick="answerYes()">
+                    ❤️ Yes
+                </button>
+
+                <button
+                    class="no-btn"
+                    onclick="answerNo()">
+                    No
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+
+    if(page.type === "final"){
+
+        html = `
+
+            <div style="font-size:70px">
+                💖
+            </div>
+
+            <h1>${escapeHTML(page.title)}</h1>
+
+            <p>${escapeHTML(page.message)}</p>
+
+            <div style="
+                font-size:45px;
+                margin-top:25px;
+            ">
+                ✨ 💕 ✨
+            </div>
+
+        `;
+
+    }
+
+
+    document.getElementById("sceneContent").innerHTML = html;
+
+
+    document.getElementById("counter").textContent =
+        `Page ${currentPage + 1} of ${pages.length}`;
+
+
+    document.getElementById("backBtn").style.display =
+        currentPage === 0 ? "none" : "inline-block";
+
+
+    document.getElementById("nextBtn").textContent =
+        currentPage === pages.length - 1
+        ? "🎉 Finish"
+        : "Next →";
+
+
+    if(page.type === "final"){
+
+        startHearts();
+
+    }
+
+}
+
+
+/* NEXT */
+
+function nextPage(){
+
+    if(currentPage < pages.length - 1){
+
+        currentPage++;
+
+        showPage();
+
+    }else{
+
+        startHearts();
+
+        alert("❤️ Surprise completed!");
+
+    }
+
+}
+
+
+/* BACK */
+
+function previousPage(){
+
+    if(currentPage > 0){
+
+        currentPage--;
+
+        showPage();
+
+    }
+
+}
+
+
+/* QUESTION YES */
+
+function answerYes(){
+
+    createHearts();
+
+    alert("❤️ I knew it!");
+
+}
+
+
+/* QUESTION NO */
+
+function answerNo(){
+
+    alert("😄 You can still continue...");
+
+}
+
+
+/* EXIT PREVIEW */
+
+function exitPreview(){
+
+    document.getElementById("preview").classList.add("hidden");
+
+    document.getElementById("editor").classList.remove("hidden");
+
+}
+
+
+/* HEARTS */
+
+function createHearts(){
+
+    for(let i=0;i<25;i++){
+
+        const heart =
+            document.createElement("div");
+
+        heart.className = "heart";
+
+        heart.textContent =
+            ["❤️","💖","💕","💗","💓"][Math.floor(Math.random()*5)];
+
+        heart.style.left =
+            Math.random()*100 + "vw";
+
+        heart.style.animationDuration =
+            (2 + Math.random()*3) + "s";
+
+        document.body.appendChild(heart);
+
+        setTimeout(()=>{
+            heart.remove();
+        },5000);
+
+    }
+
+}
+
+
+function startHearts(){
+
+    createHearts();
+
+    setTimeout(createHearts,800);
+
+}
+
+
+/* SAVE */
+
+function saveDraft(){
+
+    const data = {
+
+        name:
+            document.getElementById("personName")?.value || "",
+
+        relationship:
+            document.getElementById("relationship")?.value || "",
+
+        pages:pages
+
+    };
+
+    localStorage.setItem(
+        "surpriseMakerDraft",
+        JSON.stringify(data)
+    );
+
+}
+
+
+/* LOAD */
+
+function loadDraft(){
+
+    const saved =
+        localStorage.getItem("surpriseMakerDraft");
+
+    if(saved){
+
+        try{
+
+            const data = JSON.parse(saved);
+
+            document.getElementById("personName").value =
+                data.name || "";
+
+            document.getElementById("relationship").value =
+                data.relationship || "";
+
+            pages =
+                data.pages && data.pages.length
+                ? data.pages
+                : defaultPages();
+
+        }catch(error){
+
+            pages = defaultPages();
+
+        }
+
+    }else{
+
+        pages = defaultPages();
+
+    }
+
+    renderPages();
+
+}
+
+
+/* ESCAPE HTML */
+
+function escapeHTML(value){
+
+    return String(value || "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* INITIAL */
+
+loadDraft();
+
+</script>
+
+</body>
+</html>
